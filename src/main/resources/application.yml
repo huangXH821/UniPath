@@ -1,0 +1,75 @@
+# 端口
+server:
+  port: 8082
+spring:
+  # 数据源配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/secondhand_exchange?useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Hxh110120
+    druid:
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: false
+      # 初始连接数
+      initial-size: 10
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      # 最大连接池数量
+      max-active: 20
+      # 最小连接池数量
+      min-idle: 10
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 'x'
+      # 打开 removeAbandoned 功能
+      remove-abandoned: true
+      remove-abandoned-timeout: 1800
+      # 关闭 abanded 连接时输出错误日志
+      log-abandoned: true
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: false
+  # 视图解析器配置
+  mvc:
+    view:
+      prefix: /WEB-INF/pages/
+      suffix: .jsp
+  # 上传文件大小
+  servlet:
+    multipart:
+      max-file-size: 100MB
+# mapper文件位置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+# 分页配置
+pagehelper:
+  # 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用
+  offset-as-page-num: true
+  # 设置为true时，使用RowBounds分页会进行count查询
+  row-bounds-with-count: true
+  # 设置为true时，如果pageSize=0或者RowBounds.limit = 0就会查询出全部的结果
+  page-size-zero: true
+  # 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页
+  reasonable: true
+  # 增加了一个`params`参数来配置参数映射，用于从Map或ServletRequest中取值,可以配置pageNum,pageSize,count,pageSizeZero,reasonable,orderBy,不配置映射的用默认值
+  params: pageNum=start;pageSize=limit;
+  # 支持通过Mapper接口参数来传递分页参数
+  support-methods-arguments: true
+
+# 日志配置
+logging:
+  level:
+    com.company.exchange: debug
+    org.springframework: WARN
+    org.spring.springboot.dao: debug
