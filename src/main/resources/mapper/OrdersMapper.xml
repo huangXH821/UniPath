@@ -28,9 +28,35 @@
     where goods.id=orders.goods_id and orders.user_id = #{user_id,jdbcType=INTEGER}
   </select>
 
+    <select id="selectPageOrdersByUserId" resultMap="BaseResultMap">
+        select
+            *
+        from goods,orders
+        where goods.id=orders.goods_id and orders.user_id = #{user_id,jdbcType=INTEGER}
+        order by goods.id limit #{start},#{pageNum}
+    </select>
+
+    <select id="count" resultType="integer">
+        select count(1)
+        from goods,orders
+        where goods.id=orders.goods_id and orders.user_id = #{user_id,jdbcType=INTEGER}
+    </select>
+
     <select id="selectOrdersByUserAndGoods" resultMap="BaseResultMap">
-    SELECT * FROM goods,orders WHERE goods.id=orders.goods_id and orders.goods_id IN(SELECT id FROM goods WHERE user_id= #{user_id,jdbcType=INTEGER});
+    SELECT * FROM goods,orders WHERE goods.id=orders.goods_id and orders.goods_id IN(SELECT id FROM goods WHERE user_id= #{user_id,jdbcType=INTEGER})
+
   </select>
+    <select id="selectSellerOrdersByUserAndGoods" resultMap="BaseResultMap">
+        SELECT * FROM goods,orders WHERE goods.id=orders.goods_id and orders.goods_id IN(SELECT id FROM goods WHERE user_id= #{user_id,jdbcType=INTEGER})
+        order by goods.id limit #{start}, #{pageNum}
+
+    </select>
+    <select id="sellCount" resultType="integer">
+        SELECT count(1)
+        FROM goods,orders
+        WHERE goods.id=orders.goods_id and orders.goods_id IN(SELECT id FROM goods WHERE user_id= #{user_id,jdbcType=INTEGER})
+
+    </select>
 
 
     <select id="getOrdersList" resultMap="BaseResultMap" parameterType="String">

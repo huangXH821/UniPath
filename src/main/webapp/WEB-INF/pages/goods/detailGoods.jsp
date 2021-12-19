@@ -51,7 +51,7 @@
     
     function  addFocus(id) {
     	location.href = '<%=basePath%>user/addFocus/'+id
-    	alert("已关注成功，查看关注列表~")
+    	alert("Already in my list~")
     	
     }
     

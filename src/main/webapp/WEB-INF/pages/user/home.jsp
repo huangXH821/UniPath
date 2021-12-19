@@ -39,7 +39,7 @@
 				}
 			},
 			error:function(){
-				alert('请求超时或系统出错!');
+				alert('request exceed time!');
 				$('#viewModal').modal('hide');
 			}
    });
@@ -57,7 +57,7 @@
 			 location.reload();
 		 },
 		error:function(){
-			 alert('请求超时或系统出错!');
+			 alert('request exceed time!');
 			}
 	 });
 	   
@@ -92,14 +92,10 @@
 <div id="cover" style="min-height: 639px;">
     <div id="user_area">
         <div id="home_header">
-            <a href="<%=basePath%>goods/homeGoods">
-                <h1 class="logo"></h1>
-            </a>
-            <a href="<%=basePath%>goods/homeGoods">
-                 <img src="<%=basePath%>img/home_header.jpg"  style="margin-left: 20px;" >
-            </a>
-            <a href="<%=basePath%>user/home">
-                <div class="home"></div>
+            <a href="<%=basePath%>goods/homeGoods" class="logo">
+                <%--				<em class="em1"></em>--%>
+                <em class="em2">Unipath</em>
+                <em class="em3"></em>
             </a>
         </div>
 
@@ -282,36 +278,36 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title middle" id="myModalLabel">查看用户信息</h4>
+                <h4 class="modal-title middle" id="myModalLabel">check customer information</h4>
             </div>
             <div class="modal-body" style="height: 220px;">
 	         <form id="myviewform">
 	          <div class="form-group">
-	            <label for="recipient-name" class="control-label col-sm-2" >名称:</label>
+	            <label for="recipient-name" class="control-label col-sm-2" >name:</label>
 	            <div class="col-sm-10">
 	            <input type="text" class="form-control" id="message-text" name="username" readonly/>
 	          </div>
 	          </div>
 	          <div class="form-group">
-	            <label for="message-text" class="control-label col-sm-2">手机号:</label>
+	            <label for="message-text" class="control-label col-sm-2">phone:</label>
 	            <div class="col-sm-10">
 	            <input type="text" class="form-control" id="message-text" name="phone" readonly/>
 	          </div> 
 	          </div>
 	           <div class="form-group">
-	            <label for="message-text" class="control-label col-sm-2">qq号:</label>
+	            <label for="message-text" class="control-label col-sm-2"></label>
 	            <div class="col-sm-10">
 	            <input type="text" class="form-control" id="message-text" name="qq" readonly/>
 	          </div> 
 	          </div>
 	          <div class="form-group">
-	            <label for="message-text" class="control-label col-sm-2">信用积分:</label>
+	            <label for="message-text" class="control-label col-sm-2"></label>
 	            <div class="col-sm-10">
 	            <input type="text" class="form-control" id="message-text" name="power" readonly/>
 	          </div>
 	           </div>
 	          <div class="form-group">
-	            <label for="message-text" class="control-label col-sm-2">开户时间:</label>
+	            <label for="message-text" class="control-label col-sm-2">creat at:</label>
 	             <div class="col-sm-10">
 	            <input type="text" class="form-control" id="message-text" name="createAt" readonly/>
 	          </div>
@@ -319,7 +315,7 @@
 	        </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
