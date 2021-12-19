@@ -1,5 +1,6 @@
 package com.company.exchange.service.impl;
 
+import com.company.exchange.pojo.PageInfo;
 import com.github.pagehelper.PageHelper;
 import com.company.exchange.dao.OrdersMapper;
 import com.company.exchange.pojo.Orders;
@@ -19,6 +20,41 @@ public class OrdersServiceImpl implements OrdersService {
 		// TODO Auto-generated method stub
 		List<Orders> orders=ordersMapper.selectOrdersByUserId(user_id);
 		return orders;
+	}
+
+	@Override
+	public PageInfo<Orders> getSellerPageOrdersByUserId(Integer user_id, Integer currentPage, Integer pageNum) {
+		int start=(currentPage-1)*pageNum;
+
+		List<Orders> orders=ordersMapper.selectSellerOrdersByUserAndGoods(user_id,start,pageNum);
+
+		int total=ordersMapper.sellCount(user_id);
+
+		PageInfo<Orders> pageInfo=new PageInfo<>();
+
+		pageInfo.setData(orders);
+		pageInfo.setTotal(total);
+		pageInfo.setCurrentPage(currentPage);
+
+		return pageInfo;
+	}
+
+	@Override
+	public PageInfo<Orders> getPageOrdersByUserId(Integer user_id,Integer currentPage, Integer pageNum) {
+
+		int start=(currentPage-1)*pageNum;
+
+		List<Orders> orders=ordersMapper.selectPageOrdersByUserId(user_id,start,pageNum);
+
+		int total=ordersMapper.count(user_id);
+
+		PageInfo<Orders> pageInfo=new PageInfo<>();
+		pageInfo.setData(orders);
+		pageInfo.setTotal(total);
+		pageInfo.setCurrentPage(currentPage);
+
+		return pageInfo;
+
 	}
 
 	@Override
@@ -88,6 +124,5 @@ public class OrdersServiceImpl implements OrdersService {
 		List<Orders> orders = ordersMapper.getPageOrdersByOrders(orderNum,orderInformation,orderState);
 		return orders;
 	}
-
 
 }

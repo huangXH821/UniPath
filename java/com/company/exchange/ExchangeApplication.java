@@ -14,7 +14,7 @@ public class ExchangeApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ExchangeApplication.class, args);
-        logger.info(ExchangeApplication.class.getSimpleName() + "：启动成功!");
+        logger.info(ExchangeApplication.class.getSimpleName() + "：启动成功！");
     }
 
 }

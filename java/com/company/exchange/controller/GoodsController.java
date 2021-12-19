@@ -37,12 +37,7 @@ public class GoodsController {
     @Autowired
     private PhoneService phoneService;
 
-    /**
 
-     *
-     * @return
-     * @throws Exception
-     */
     @RequestMapping(value = "/homeGoods")
     public ModelAndView homeGoods() throws Exception {
         ModelAndView modelAndView = new ModelAndView();
@@ -78,7 +73,7 @@ public class GoodsController {
 
 
         for (int i = 1; i <= catelogSize; i++) {
-            goodsList = goodsService.getGoodsByCatelogOrderByDate(i, goodsSize);
+            goodsList = goodsService.getGoodsByCatelogOrderByDate(i, goodsSize);//goodsSize只是一个limit
             goodsAndImage = new ArrayList<GoodsExtend>();
             for (int j = 0; j < goodsList.size(); j++) {
 
@@ -264,9 +259,7 @@ public class GoodsController {
     public ModelAndView publishGoods(HttpServletRequest request) {
 
         User cur_user = (User) request.getSession().getAttribute("cur_user");
-        // if (cur_user == null) {
-        // return "/goods/homeGoods";
-        // } else {
+
         Integer userId = cur_user.getId();
         Purse myPurse = purseService.getPurseByUserId(userId);
         ModelAndView mv = new ModelAndView();
