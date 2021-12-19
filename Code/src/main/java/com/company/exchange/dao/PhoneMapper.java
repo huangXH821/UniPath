@@ -1,6 +1,5 @@
 package com.company.exchange.dao;
 
-import com.company.exchange.pojo.Comments;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 

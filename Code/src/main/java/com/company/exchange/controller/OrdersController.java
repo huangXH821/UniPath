@@ -1,9 +1,6 @@
 package com.company.exchange.controller;
 
-import com.company.exchange.pojo.Goods;
-import com.company.exchange.pojo.Orders;
-import com.company.exchange.pojo.Purse;
-import com.company.exchange.pojo.User;
+import com.company.exchange.pojo.*;
 import com.company.exchange.service.GoodsService;
 import com.company.exchange.service.OrdersService;
 import com.company.exchange.service.PurseService;
@@ -15,9 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 @Controller
@@ -38,13 +33,33 @@ public class OrdersController {
     public ModelAndView orders(HttpServletRequest request) {
         User cur_user = (User) request.getSession().getAttribute("cur_user");
         Integer user_id = cur_user.getId();
-        List<Orders> ordersList1 = new ArrayList<Orders>();
-        List<Orders> ordersList2 = new ArrayList<Orders>();
-        ordersList1 = ordersService.getOrdersByUserId(user_id);
-        ordersList2 = ordersService.getOrdersByUserAndGoods(user_id);
+        int currentPage=1;
+        if(null==request.getParameter("currentPage")||"".equals(request.getParameter("currentPage"))){
+            currentPage=1;
+        }else{
+            currentPage=Integer.valueOf(request.getParameter("currentPage"));
+        }
+
+        int pageNum=3;
+        if(null==request.getParameter("pageNum")||"".equals(request.getParameter("pageNum"))){
+            pageNum=3;
+        }else{
+            pageNum=Integer.valueOf(request.getParameter("pageNum"));
+        }
+
+
+
+        //List<Orders> ordersList1 = new ArrayList<Orders>();
+        //List<Orders> ordersList2 = new ArrayList<Orders>();
+//        ordersList1 = ordersService.getOrdersByUserId(user_id);
+       PageInfo<Orders> buyPageOrdersInfo =ordersService.getPageOrdersByUserId(user_id,currentPage,pageNum);
+        PageInfo<Orders> sellPageOrdersInfo =ordersService.getSellerPageOrdersByUserId(user_id,currentPage,pageNum);
+       // ordersList2 = ordersService.getOrdersByUserAndGoods(user_id);
         Purse myPurse = purseService.getPurseByUserId(user_id);
-        mv.addObject("ordersOfSell", ordersList2);
-        mv.addObject("orders", ordersList1);
+        //mv.addObject("ordersOfSell", ordersList2);
+        //mv.addObject("orders", ordersList1);
+        mv.addObject("pageOrdersInfo", buyPageOrdersInfo);
+        mv.addObject("sellPageOrdersInfo", sellPageOrdersInfo);
         mv.addObject("myPurse", myPurse);
         mv.setViewName("/user/orders");
         return mv;

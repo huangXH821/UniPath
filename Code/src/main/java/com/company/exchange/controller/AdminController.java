@@ -41,7 +41,7 @@ public class AdminController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String login(HttpSession session) {
-        // 清除sessio
+        // 清除session
         //session.invalidate();
         return "/admin/login";
     }

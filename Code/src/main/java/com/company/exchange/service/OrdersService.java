@@ -1,13 +1,17 @@
 package com.company.exchange.service;
 
 import com.company.exchange.pojo.Orders;
+import com.company.exchange.pojo.PageInfo;
 
 import java.util.List;
 
 public interface OrdersService {
 	
 	public List<Orders> getOrdersByUserId(Integer user_id);
-	
+
+	public PageInfo<Orders> getPageOrdersByUserId(Integer user_id,Integer currentPage, Integer pageNum);
+	public PageInfo<Orders> getSellerPageOrdersByUserId(Integer user_id,Integer currentPage, Integer pageNum);
+
 	public List<Orders> getOrdersByUserAndGoods(Integer user_id);
 
 	public void addOrders(Orders orders);
