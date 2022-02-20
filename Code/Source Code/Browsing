@@ -1,0 +1,52 @@
+public ModelAndView homeGoods() throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+
+        int catelogSize = 8;
+
+        int goodsSize = 6;
+
+        List<Goods> goodsList = null;
+        List<GoodsExtend> goodsAndImage = null;
+        List<User> userList = null;
+
+
+        userList = userService.getUserOrderByDate(goodsSize);
+        goodsList = goodsService.getGoodsOrderByDate(goodsSize);
+        goodsAndImage = new ArrayList<GoodsExtend>();
+        for (int j = 0; j < goodsList.size(); j++) {
+
+            GoodsExtend goodsExtend = new GoodsExtend();
+            Goods goods = goodsList.get(j);
+
+            User user = userList.get(j);
+
+            List<Image> images = imageService.getImagesByGoodsPrimaryKey(goods.getId());
+            goodsExtend.setGoods(goods);
+            goodsExtend.setImages(images);
+            goodsExtend.setNum(commentService.getCommentCount(goods.getId()));
+            goodsExtend.setPhone(phoneService.getUserPhone(user.getId()));
+            goodsAndImage.add(j, goodsExtend);
+        }
+        String key0 = "catelogGoods";
+        modelAndView.addObject(key0, goodsAndImage);
+
+
+        for (int i = 1; i <= catelogSize; i++) {
+            goodsList = goodsService.getGoodsByCatelogOrderByDate(i, goodsSize);//goodsSize只是一个limit
+            goodsAndImage = new ArrayList<GoodsExtend>();
+            for (int j = 0; j < goodsList.size(); j++) {
+
+                GoodsExtend goodsExtend = new GoodsExtend();
+                Goods goods = goodsList.get(j);
+                List<Image> images = imageService.getImagesByGoodsPrimaryKey(goods.getId());
+                goodsExtend.setGoods(goods);
+                goodsExtend.setImages(images);
+                goodsAndImage.add(j, goodsExtend);
+                goodsExtend.setNum(commentService.getCommentCount(goods.getId()));
+            }
+            String key = "catelog" + "Goods" + i;
+            modelAndView.addObject(key, goodsAndImage);
+        }
+        modelAndView.setViewName("goods/homeGoods");
+        return modelAndView;
+    }
