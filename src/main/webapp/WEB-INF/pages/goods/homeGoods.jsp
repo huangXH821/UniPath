@@ -15,8 +15,64 @@
     <script type="text/javascript" src="<%=basePath%>js/jquery.js"></script>
     <script type="text/javascript" src="<%=basePath%>js/materialize.min.js"></script>
     <script type="text/javascript" src="<%=basePath%>js/index.bundle.js"></script>
+    <script type="text/javascript">
+        function removeImg(){
+            $("#img_ad").hide(1000);
+        }
+    </script>
     <link rel="stylesheet" href="<%=basePath%>css/materialize-icon.css"/>
     <link rel="stylesheet" href="<%=basePath%>css/user.css"/>
+    <style>
+        .img-box{
+
+            display: inline-block;
+        border: 1px solid #ececec;
+            position: relative;
+        }
+
+        .cover-img{
+            max-width: 800px;
+            min-width: 200px;
+        }
+
+
+        .image-remove{
+            background-color: white;
+            font-color: #ececec;
+            font-size: 30px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            border-radius: 100%;
+            transform: rotate(45deg);
+            cursor:pointer;
+            opacity: 0.5;
+            top:2px;
+            right:2px;
+        display: block;
+        position: absolute;
+
+        }
+
+        .re{transform:rotate(90deg);
+            -ms-transform:rotate(90deg); /* Internet Explorer 9*/
+            -moz-transform:rotate(90deg); /* Firefox */
+            -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+            -o-transform:rotate(90deg); /* Opera */
+            filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+            position: absolute;
+            top: 0px;
+            right: 1px;
+            cursor: pointer;
+            color:red;
+
+
+
+        }
+
+
+    </style>
+
     <script>
         function showLogin() {
             if ($("#signup-show").css("display") == 'block') {
@@ -294,6 +350,12 @@
         <p>000-000-0000</p>
     </div>
 
+    <div class="img-box" style="margin-top: 40px">
+        <img src="/img/photo.jpg" class="cover-img" id="img_ad" width="230px"/>
+        <div class="re" onclick="removeImg()" id="removeImg">+</div>
+
+
+    </div>
 
 </div>
 
